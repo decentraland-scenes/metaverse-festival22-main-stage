@@ -1,0 +1,111 @@
+import { isPreviewMode } from '@decentraland/EnvironmentAPI'
+import { DispenserPos } from "./claiming-dropin/claiming/claimTypes"
+import { STAGE_IDS } from "./stageIds"
+
+const ParcelCountX:number = 12
+const ParcelCountZ:number = 8
+
+const DEFAULT_ENV = "prd"
+
+//zone is NOT LIVE,  org is live
+  //alpha version of url was https://festival-mgmt.s3.us-west-1.amazonaws.com/festival.json
+  //REMOTE_VIDEO_CONFIG = "https://kv-store.decentraland.zone/festival.json"
+  //REMOTE_VIDEO_CONFIG = "https://kv-store.decentraland.org/festival.json"
+const REMOTE_VIDEO_CONFIG: Record<string, string> = {
+  "local": "https://kv-store.decentraland.zone/festival.json",//for local testing if u need different value
+  "stg": "https://kv-store.decentraland.zone/festival.json",//DEV/preview
+  "prd": "https://kv-store.decentraland.org/festival.json",//PROD/live use this for launch
+};
+
+const ENABLED_DETECT_SCENE_ACTIVE_UTIL = true 
+export class Config{
+  sizeX!:number
+  sizeY!:number
+  sizeZ!:number
+
+<<<<<<< HEAD
+  IN_PREVIEW = true
+  FORCE_PREVIEW_ENABLED = true
+  FAKING_LOCALLY = true
+  FAKING_LOCALLY_SHOW_ID = 20 //configure local shows here ./src/modules/showMgmt/scheduleSetup.ts#L49
+=======
+  IN_PREVIEW = false
+  FORCE_PREVIEW_ENABLED = false
+  FAKING_LOCALLY = false
+  FAKING_LOCALLY_SHOW_ID = 24 //configure local shows here ./src/modules/showMgmt/scheduleSetup.ts#L49
+>>>>>>> origin/development
+  FAKING_LOCALLY_LATENCY = 1//in seconds test lag to account for show starting X late due to player connection
+  
+
+  LOCAL_VIDEO_SHOW_SCHEDULER_ENABLED = false //if true, will activate https://github.com/decentraland/show-management#run-your-show
+  VIDEO_DATE_TESTING_ENABLED = false
+  LOCAL_VIDEO_SHOW_SCHEDULER_INTEVAL = 1//how often it checks if show should start in seconds
+
+  REMOTE_VIDEO_CONFIG_ENABLED = true // if set to false, none of the remove video code will run
+  REMOTE_VIDEO_CONFIG = "##set-in-init()"
+  STAGE_ID:STAGE_IDS = STAGE_IDS.MAIN_STAGE
+  STAGE_CLAIMING_ID:STAGE_IDS = STAGE_IDS.MAIN_STAGE
+
+  SHOW_COUNTER_DELAY = 1//1000 * 60 * 2.5
+  center!:Vector3
+  centerGround!:Vector3
+  
+  initAlready:boolean = false 
+
+  //if trigger is visibile
+  DEBUG_ACTIVE_SCENE_TRIGGER_ENABLED=false
+  DEBUG_3D_PANEL_ENABLED=true
+  DEBUG_2D_PANEL_ENABLED=true
+  DEBUG_3D_PANEL_POSITION=new Vector3(8, 7.7+2, 8)
+ 
+  //
+  ENABLED_DETECT_SCENE_ACTIVE_UTIL = ENABLED_DETECT_SCENE_ACTIVE_UTIL
+  //detect if video is allowed to be played
+  CAN_PLAY_VIDEO = !ENABLED_DETECT_SCENE_ACTIVE_UTIL
+
+
+  ///dropzone area
+  DROPZONE_HELPER_VISIBLE = false //enable to see drop zone
+  DROPZONE_POSITION = new Vector3(96,10,79)
+  DROPZONE_DROP_HEIGHT = 60 //height from which it is dropped
+  DROPZONE_SIZE = new Vector3(30,20,30)
+
+
+  //START claiming/dispensers
+  CLAIM_TESTING_ENABLED = false
+  CLAIM_DO_HAS_WEARABLE_CHECK = false
+  CLAIM_DATE_TESTING_ENABLED = false
+  DISPENSER_POSITIONS:DispenserPos[] = [] 
+  //END claiming/dispensers
+ 
+  init(){
+    if(this.initAlready) return;
+
+    log('stage',CONFIG.STAGE_ID,"initConfig() running with " + DEFAULT_ENV)
+      
+    this.sizeX = ParcelCountX*16
+    this.sizeZ = ParcelCountZ*16 
+    this.sizeY = (Math.log((ParcelCountX*ParcelCountZ) + 1) * Math.LOG2E) * 20// log2(n+1) x 20 //Math.log2( ParcelScale + 1 ) * 20
+    this.center = new Vector3(this.sizeX/2,this.sizeY/2,this.sizeZ/2)
+    this.centerGround = new Vector3(this.sizeX/2,0,this.sizeZ/2)
+
+    this.REMOTE_VIDEO_CONFIG = REMOTE_VIDEO_CONFIG[DEFAULT_ENV]
+
+    this.initAlready = true
+
+  }
+}
+
+export const CONFIG = new Config()
+
+
+export function initConfig(){
+  log('stage',CONFIG.STAGE_ID,"initConfig() with " + DEFAULT_ENV)
+  CONFIG.init()
+
+  isPreviewMode().then( (val:boolean) =>{
+    log("IN_PREVIEW",CONFIG.IN_PREVIEW,val)
+    CONFIG.IN_PREVIEW = val || CONFIG.FORCE_PREVIEW_ENABLED
+  })
+  return CONFIG
+}

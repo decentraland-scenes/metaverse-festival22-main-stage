@@ -1,0 +1,9 @@
+import * as showMgmt from 'src/festival-mgmt-dropin/show-management/index'
+
+//intermediatry to help keep loose coupling
+export class Registry{
+  SHOW_MGR!:showMgmt.ShowManager
+  videoMaterial!:Material
+}
+
+export const REGISTRY = new Registry()

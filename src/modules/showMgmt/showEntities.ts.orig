@@ -1,0 +1,106 @@
+import { REGISTRY } from 'src/festival-mgmt-dropin/registry'
+import * as showMgmt from 'src/festival-mgmt-dropin/show-management/index'
+//import { SHOW_MGR } from './showSetup'
+
+
+//START ADDING syncable objects
+
+// Lights TOP
+export const main_stage_lights_top = new showMgmt.ShowEntityModel( 
+  "main_stage_lights_top",
+  new GLTFShape('models/main_stage_lights_top.glb'),
+  //new BoxShape(),
+  {
+    startInvisible: false,
+    idleAnim:"Top_Lights_Off_Neutral",
+  transform:new Transform( 
+    {
+      position: new Vector3(192/2, 0, 128/2),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(1, 1, 1),
+    }
+   )}
+)
+
+// Lights BOTTOM
+export const main_stage_lights_bottom = new showMgmt.ShowEntityModel( 
+  "main_stage_lights_bottom",
+  new GLTFShape('models/main_stage_lights_bottom.glb'),
+  //new BoxShape(),
+  {
+    startInvisible: false,
+    idleAnim:"Bottom_Lights_02",
+  transform:new Transform( 
+    {
+      position: new Vector3(192/2, 0, 128/2),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(1, 1, 1),
+    }
+   )}
+)
+
+//Lights_Tower
+export const main_stage_tower = new showMgmt.ShowEntityModel( 
+  "main_stage_tower",
+  new GLTFShape('models/main_stage_tower.glb'),
+  //new BoxShape(),
+  { 
+    startInvisible: false,
+    idleAnim:"Tower_Lights_Off_Neutral",
+  transform:new Transform( 
+    {
+      position: new Vector3(192/2, 0, 128/2),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(1, 1, 1),
+    }
+   )}
+)
+
+//Lights_Tower
+export const main_stage_lights_fire = new showMgmt.ShowEntityModel( 
+  "main_stage_lights_fire",
+  new GLTFShape('models/main_stage_lights_fire.glb'),
+  //new BoxShape(),
+  {
+    startInvisible: false,
+    idleAnim:"Fire_Lights_Neutral_Off",
+  transform:new Transform( 
+    {
+      position: new Vector3(192/2, 0, 128/2),
+      rotation: Quaternion.Euler(0, 0, 0),
+      scale: new Vector3(1, 1, 1),
+    }
+   )}
+)
+
+export function registerShowEntities(){
+  REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_lights_top",main_stage_lights_top) 
+  REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_lights_bottom",main_stage_lights_bottom) 
+  REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_tower",main_stage_tower) 
+  REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_lights_fire",main_stage_lights_fire) 
+
+<<<<<<< HEAD
+
+  
+  REGISTRY.SHOW_MGR.actionMgr.getRegisteredHandler(showMgmt.ShowPauseAllActionHandler.DEFAULT_NAME).addOnProcessListener(
+    (action: showMgmt.ActionParams<string>,showActionMgr:showMgmt.ShowActionManager)=>{
+      //do stuff
+      //log("triggered addOnProcessListener") 
+    }
+  )
+}
+=======
+REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_lights_top",main_stage_lights_top) 
+REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_lights_bottom",main_stage_lights_bottom) 
+REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_tower",main_stage_tower) 
+REGISTRY.SHOW_MGR.actionMgr.registerShowEntity("main_stage_lights_fire",main_stage_lights_fire) 
+
+
+ 
+REGISTRY.SHOW_MGR.actionMgr.getRegisteredHandler(showMgmt.ShowPauseAllActionHandler.DEFAULT_NAME).addOnProcessListener(
+  (action: showMgmt.ActionParams<string>,showActionMgr:showMgmt.ShowActionManager)=>{
+    //do stuff
+    //log("triggered addOnProcessListener") 
+  }
+)
+>>>>>>> origin/JP

@@ -1,0 +1,1 @@
+moved to src/festival-mgmt-dropin copy

@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "outFile": "./bin/game.js",
+    "allowJs": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "strictBindCallApply": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@dcl/ecs-scene-utils": [
+        "node_modules/@dcl/ecs-scene-utils/dist/index.d.ts",
+        "node_modules\\@dcl\\ecs-scene-utils\\dist\\index.d.ts"
+      ],
+      "@dcl/ui-scene-utils": [
+        "node_modules/@dcl/ui-scene-utils/dist/index.d.ts",
+        "node_modules\\@dcl\\ui-scene-utils\\dist\\index.d.ts"
+      ],
+      "@dcl/subtitle-helper": [
+        "node_modules/@dcl/subtitle-helper/dist/index.d.ts",
+        "node_modules\\@dcl\\subtitle-helper\\dist\\index.d.ts"
+      ],
+      "@dcl/show-management": [
+        "node_modules/@dcl/show-management/dist/index.d.ts",
+        "node_modules\\@dcl\\show-management\\dist\\index.d.ts"
+      ],
+      "@dcl/builder-hud": [
+        "node_modules/@dcl/builder-hud/dist/index.d.ts",
+        "node_modules\\@dcl\\builder-hud\\dist\\index.d.ts"
+      ]
+    },
+    "baseUrl": "."
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "extends": "./node_modules/decentraland-ecs/types/tsconfig.json",
+  "compileOnSave": false
+}
